@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using GTA;
 using GTA.Math;
+using GTA.UI;
 using GTA.Native;
 
 namespace Autopilot
@@ -33,7 +34,7 @@ namespace Autopilot
 
                 if (Game.Player.Character.IsInVehicle())
                 {
-                    GTA.UI.Notification.Show("You are a big puff");
+
                 }
             }
         }
@@ -50,10 +51,12 @@ namespace Autopilot
                 if (autopilotEnabled == false)
                 {
                     autopilotEnabled = true;
+                    Notification.Show("Autopilot Enabled");
                 }
                 else
                 {
                     autopilotEnabled = false;
+                    Notification.Show("Autopilot Disabled");
                 }
             }
 
