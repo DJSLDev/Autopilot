@@ -30,12 +30,13 @@ namespace Autopilot
         {
             if (autopilotEnabled == true)
             {
-                //Game.Player.Character.CurrentVehicle.
+                //Game.Player.Character;
+                //Game.Player.Character.CurrentVehicle.Speed = 1f;
 
-                if (Game.Player.Character.IsInVehicle())
+                /*if (Game.Player.Character.IsInVehicle())
                 {
 
-                }
+                }*/
             }
         }
 
