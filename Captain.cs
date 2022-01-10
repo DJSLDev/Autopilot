@@ -14,66 +14,78 @@ namespace Autopilot
 {
     public class Captain : Script
     {
-        public bool autopilotEnabled = false;
+        private bool autopilotEnabled = false;
 
-        public float cruiseSpeed = 30f;
-        public float maxCruiseSpeed = 160f;
+        private float cruiseSpeed = 0f;
+
+        private float defaultCruiseSpeed = 30f;
+        private float maxCruiseSpeed = 160f;
 
         public Captain()
         {
-            this.Tick += onTick;
-            this.KeyUp += onKeyUp;
-            this.KeyDown += onKeyDown;
+            this.Tick += OnTick;
+            this.KeyUp += OnKeyUp;
+            this.KeyDown += OnKeyDown;
         }
 
-        private void onTick(object sender, EventArgs e)
+        private void OnTick(object sender, EventArgs e)
         {
             if (autopilotEnabled == true)
             {
                 //Game.Player.Character;
                 //Game.Player.Character.CurrentVehicle.Speed = 1f;
 
-                /*if (Game.Player.Character.IsInVehicle())
+                if (Game.Player.Character.IsInVehicle())
                 {
-
-                }*/
+                    Game.Player.Character.CurrentVehicle.Speed = cruiseSpeed;
+                }
             }
         }
 
-        private void onKeyUp(object sender, KeyEventArgs e)
+        private void OnKeyUp(object sender, KeyEventArgs e)
         {
-
         }
 
-        private void onKeyDown(object sender, KeyEventArgs e)
+        private void OnKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.NumPad5)
+            if (Game.Player.Character.IsInVehicle())
             {
-                if (autopilotEnabled == false)
+                if (e.KeyCode == Keys.NumPad5)
                 {
-                    autopilotEnabled = true;
-                    Notification.Show("Autopilot Enabled");
+                    if (autopilotEnabled == false)
+                    {
+                        autopilotEnabled = true;
+                        Notification.Show("Autopilot Enabled");
+                    }
+                    else
+                    {
+                        autopilotEnabled = false;
+                        Notification.Show("Autopilot Disabled");
+                    }
                 }
-                else
-                {
-                    autopilotEnabled = false;
-                    Notification.Show("Autopilot Disabled");
-                }
-            }
 
-            if (e.KeyCode == Keys.NumPad8)
-            {
-                if (cruiseSpeed < maxCruiseSpeed)
+                if (e.KeyCode == Keys.NumPad8)
                 {
-                    cruiseSpeed += 5f;
+                    if (cruiseSpeed < maxCruiseSpeed)
+                    {
+                        cruiseSpeed += 5f;
+                        Notification.Show("Cruise Control Speed: " + cruiseSpeed);
+                    }
                 }
-            }
 
-            if (e.KeyCode == Keys.NumPad2)
-            {
-                if (cruiseSpeed > 0)
+                if (e.KeyCode == Keys.NumPad2)
                 {
-                    cruiseSpeed -= 5f;
+                    if (cruiseSpeed > 0)
+                    {
+                        cruiseSpeed -= 5f;
+                        Notification.Show("Cruise Control Speed: " + cruiseSpeed);
+                    }
+                }
+
+                if (e.KeyCode == Keys.NumPad3)
+                {
+                    cruiseSpeed = defaultCruiseSpeed;
+                    Notification.Show("Cruise Speed Set To Default");
                 }
             }
         }
