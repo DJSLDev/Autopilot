@@ -24,7 +24,6 @@ namespace Autopilot
         public Captain()
         {
             this.Tick += OnTick;
-            this.KeyUp += OnKeyUp;
             this.KeyDown += OnKeyDown;
         }
 
@@ -40,10 +39,6 @@ namespace Autopilot
                     Game.Player.Character.CurrentVehicle.Speed = cruiseSpeed;
                 }
             }
-        }
-
-        private void OnKeyUp(object sender, KeyEventArgs e)
-        {
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)
